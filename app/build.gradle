@@ -13,6 +13,15 @@ android {
         versionCode = (buildNumber != null ? buildNumber : "0")
         versionName "0.0.0.${git.head().abbreviatedId}"
     }
+
+    productFlavors {
+        production {
+        }
+        development {
+            versionName android.defaultConfig.versionName + ".development"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
