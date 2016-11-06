@@ -1,13 +1,14 @@
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "com.aguesoftguar.medalarm"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 25
         def buildNumber = System.getenv("BUILD_NUMBER")
         versionCode = (buildNumber != null ? buildNumber : "0")
         versionName "0.0.0.${git.head().abbreviatedId}"
@@ -23,6 +24,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:design:25.0.0'
+    compile 'com.google.firebase:firebase-database:9.6.1'
 }
