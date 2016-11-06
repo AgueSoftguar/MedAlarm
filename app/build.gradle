@@ -8,8 +8,9 @@ android {
         applicationId "com.aguesoftguar.medalarm"
         minSdkVersion 21
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        def buildNumber = System.getenv("BUILD_NUMBER")
+        versionCode = (buildNumber != null ? buildNumber : "0")
+        versionName "0.0.0.${git.head().abbreviatedId}"
     }
     buildTypes {
         release {
