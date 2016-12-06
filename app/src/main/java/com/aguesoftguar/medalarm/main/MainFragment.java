@@ -20,24 +20,32 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+/**
+ * The main {@link Fragment} of the application.
+ */
 public class MainFragment extends Fragment {
 
-    public MainFragment() {
-        // Requires empty public constructor
-    }
+   public MainFragment() {
+      // Requires empty public constructor
+   }
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
-    }
+   /**
+    * Create a new instance of the {@link MainFragment}.
+    *
+    * @return New {@link MainFragment} object.
+    */
+   public static MainFragment newInstance() {
+      return new MainFragment();
+   }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+   @Override
+   public void onCreate(@Nullable Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+   }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
+   @Override
+   public void onResume() {
+      super.onResume();
+   }
 
 }
