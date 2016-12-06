@@ -16,8 +16,13 @@
 
 package com.aguesoftguar.medalarm;
 
-
+/**
+ * Interface used as a basis for a Presenter in the MVP architecture.
+ */
 public interface BasePresenter {
 
-    void start();
+   /**
+    * Start the Presenter activity.
+    */
+   void start();
 }

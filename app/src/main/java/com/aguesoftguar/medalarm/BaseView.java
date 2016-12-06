@@ -16,8 +16,17 @@
 
 package com.aguesoftguar.medalarm;
 
+/**
+ * Interface used as a basis for a View in the MVP architecture.
+ *
+ * @param <T> {@link BasePresenter} object.
+ */
+public interface BaseView<T extends BasePresenter> {
 
-public interface BaseView <T extends BasePresenter> {
-
-    void setPresenter(T presenter);
+   /**
+    * Set the {@link BasePresenter} used for this View.
+    *
+    * @param presenter The Presenter used for the View.
+    */
+   void setPresenter(T presenter);
 }
