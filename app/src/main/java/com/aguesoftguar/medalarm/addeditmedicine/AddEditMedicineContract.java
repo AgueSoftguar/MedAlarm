@@ -18,6 +18,9 @@ package com.aguesoftguar.medalarm.addeditmedicine;
 
 import com.aguesoftguar.medalarm.BasePresenter;
 import com.aguesoftguar.medalarm.BaseView;
+import com.aguesoftguar.medalarm.data.Patient;
+
+import java.util.List;
 
 /**
  * This specifies the contract between the view and the presenter.
@@ -29,10 +32,15 @@ public interface AddEditMedicineContract {
 
       boolean isActive();
 
+      void loadPatients(List<Patient> patients);
+
+      void addPatient(Patient patient);
    }
 
    interface Presenter extends BasePresenter {
 
       void saveMedicine();
+
+      void savePatient(String name, String photo);
    }
 }
