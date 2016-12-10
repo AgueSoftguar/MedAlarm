@@ -14,11 +14,31 @@ android {
     }
 
     productFlavors {
+
+        def BOOLEAN = "boolean"
+        def TRUE = "true"
+        def FALSE = "false"
+        def LOGE = "LOG_E"
+        def LOGW = "LOG_W"
+        def LOGI = "LOG_I"
+        def LOGD = "LOG_D"
+        def LOGV = "LOG_V"
+
         production {
+            buildConfigField BOOLEAN, LOGE, TRUE
+            buildConfigField BOOLEAN, LOGW, TRUE
+            buildConfigField BOOLEAN, LOGI, TRUE
+            buildConfigField BOOLEAN, LOGD, FALSE
+            buildConfigField BOOLEAN, LOGV, FALSE
         }
         development {
             applicationIdSuffix ".development"
             versionNameSuffix ".development"
+            buildConfigField BOOLEAN, LOGE, TRUE
+            buildConfigField BOOLEAN, LOGW, TRUE
+            buildConfigField BOOLEAN, LOGI, TRUE
+            buildConfigField BOOLEAN, LOGD, TRUE
+            buildConfigField BOOLEAN, LOGV, TRUE
         }
     }
 
@@ -33,13 +53,20 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+
+    // General
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support:support-annotations:25.0.0'
+    compile 'com.google.guava:guava:20.0'
+
+    // Firebase
     compile 'com.google.firebase:firebase-database:9.8.0'
     compile 'com.google.firebase:firebase-core:9.8.0'
     compile 'com.google.firebase:firebase-crash:9.8.0'
-    compile 'com.android.support:support-annotations:25.0.0'
-    compile 'com.google.guava:guava:20.0'
+
+    // Log utils
+    compile 'com.jakewharton.timber:timber:4.3.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

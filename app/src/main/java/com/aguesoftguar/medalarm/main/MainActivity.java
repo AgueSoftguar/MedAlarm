@@ -27,6 +27,7 @@ import android.view.View;
 
 import com.aguesoftguar.medalarm.ActivityUtils;
 import com.aguesoftguar.medalarm.R;
+import com.aguesoftguar.medalarm.util.Log;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
@@ -34,12 +35,16 @@ import com.google.firebase.analytics.FirebaseAnalytics;
  */
 public class MainActivity extends AppCompatActivity {
 
+   private static final String TAG = "MainActivity";
+
    private FirebaseAnalytics firebaseAnalytics;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
+
+      Log.i(TAG, "Begin");
 
       // Firebase initialization
       firebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -64,14 +69,20 @@ public class MainActivity extends AppCompatActivity {
          ActivityUtils.addFragmentToActivity(
             getSupportFragmentManager(), tasksFragment, R.id.contentFrame);
       }
+
+      Log.i(TAG, "Return");
    }
 
    @Override
    protected void onResume() {
       super.onResume();
 
+      Log.i(TAG, "Begin");
+
       // Send firebase open application event
       firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, new Bundle());
+
+      Log.i(TAG, "Return");
    }
 
    @Override
