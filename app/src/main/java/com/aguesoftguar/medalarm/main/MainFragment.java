@@ -16,14 +16,27 @@
 
 package com.aguesoftguar.medalarm.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.aguesoftguar.medalarm.R;
+import com.aguesoftguar.medalarm.main.addeditmedicine.AddEditMedicineActivity;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The main {@link Fragment} of the application.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements MainContract.View {
+
+   private MainContract.Presenter mPresenter;
 
    public MainFragment() {
       // Requires empty public constructor
@@ -39,13 +52,31 @@ public class MainFragment extends Fragment {
    }
 
    @Override
-   public void onCreate(@Nullable Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
+   public void setPresenter(@NonNull MainContract.Presenter presenter) {
+      mPresenter = checkNotNull(presenter);
    }
 
+   @Nullable
    @Override
-   public void onResume() {
-      super.onResume();
+   public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                            Bundle savedInstanceState) {
+      View root = inflater.inflate(R.layout.fragment_main, container, false);
+
+      FloatingActionButton fab =
+         (FloatingActionButton) getActivity().findViewById(R.id.add_medicine_fab);
+      fab.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            mPresenter.addNewMedicine();
+         }
+      });
+
+      setHasOptionsMenu(true);
+      return root;
    }
 
+   @Override public void showAddMedicine() {
+      Intent intent = new Intent(getContext(), AddEditMedicineActivity.class);
+      startActivity(intent);
+   }
 }

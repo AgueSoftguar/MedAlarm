@@ -231,11 +231,11 @@ public class Log {
    /**
     * Returns a {@link String} suitable for crash reporting tools
     *
-    * @param priorityLevel Log level
-    * @param tag           Log tag
-    * @param msg           Log message
-    * @param throwable     Log exception (can be null)
-    * @return A {@link String} suitable for crash reporting
+    * @param priorityLevel Log level.
+    * @param tag           Log tag.
+    * @param msg           Log message.
+    * @param throwable     Log exception (can be null).
+    * @return A {@link String} suitable for crash reporting.
     */
    private static String getCrashReporterLogMessage(String priorityLevel, String tag, String msg, Throwable throwable) {
       String logString = String.format(FIREBASE_LOG_MESSAGE_FORMAT, priorityLevel, tag, msg);

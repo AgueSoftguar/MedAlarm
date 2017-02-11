@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!-- Theme colors -->
+    <color name="primary">#FFC107</color>
+    <color name="primary_dark">#FFA000</color>
+    <color name="primary_light">#FFECB3</color>
+    <color name="accent">#448AFF</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#777777</color>
+    <color name="divider">#DDDDDD</color>
+
+    <!-- Add and edit medicine -->
+    <color name="add_and_edit_medicine_edit_text_hint">#757575</color>
+    <color name="add_and_edit_medicine_edit_text">#212121</color>
+    <color name="add_and_edit_medicine_text_view">#212121</color>
+
+    <!-- Medicine colors -->
+    <color name="medicine_red">#D32F2F</color>
+    <color name="medicine_pink">#FF4081</color>
+    <color name="medicine_blue">#0288D1</color>
+    <color name="medicine_teal">#00796B</color>
+    <color name="medicine_green">#CDDC39</color>
+    <color name="medicine_yellow">#FFEB3B</color>
+    <color name="medicine_brown">#5D4037</color>
+    <color name="medicine_gray">#607D8B</color>
+
 </resources>

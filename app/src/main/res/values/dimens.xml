@@ -1,6 +1,20 @@
 <resources>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Main screen -->
+    <dimen name="main_screen_empty_list_text_size">19sp</dimen>
+
+    <!-- Add and edit medicine screen -->
+    <dimen name="add_and_edit_medicine_row_height">64dp</dimen>
+    <dimen name="add_and_edit_medicine_row_vertical_margin">24dp</dimen>
+    <dimen name="add_and_edit_medicine_row_vertical_margin_small">18dp</dimen>
+    <dimen name="add_and_edit_medicine_icon_size">24dp</dimen>
+    <dimen name="add_and_edit_medicine_first_column_width">56dp</dimen>
+    <dimen name="add_and_edit_medicine_separator_height">1dp</dimen>
+    <dimen name="add_and_edit_medicine_text_size">16sp</dimen>
+
 </resources>

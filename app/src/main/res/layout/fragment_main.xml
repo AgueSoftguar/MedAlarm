@@ -13,7 +13,12 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
+        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/main_screen_empty_list"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/main_screen_empty_list_text_size" />
+
 </RelativeLayout>
