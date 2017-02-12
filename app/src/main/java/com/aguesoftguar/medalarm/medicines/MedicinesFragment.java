@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2016, Agüesoftgüar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aguesoftguar.medalarm.main;
+package com.aguesoftguar.medalarm.medicines;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,32 +27,32 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aguesoftguar.medalarm.R;
-import com.aguesoftguar.medalarm.main.addeditmedicine.AddEditMedicineActivity;
+import com.aguesoftguar.medalarm.addeditmedicine.AddEditMedicineActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The main {@link Fragment} of the application.
  */
-public class MainFragment extends Fragment implements MainContract.View {
+public class MedicinesFragment extends Fragment implements MedicinesContract.View {
 
-   private MainContract.Presenter mPresenter;
+   private MedicinesContract.Presenter mPresenter;
 
-   public MainFragment() {
+   public MedicinesFragment() {
       // Requires empty public constructor
    }
 
    /**
-    * Create a new instance of the {@link MainFragment}.
+    * Create a new instance of the {@link MedicinesFragment}.
     *
-    * @return New {@link MainFragment} object.
+    * @return New {@link MedicinesFragment} object.
     */
-   public static MainFragment newInstance() {
-      return new MainFragment();
+   public static MedicinesFragment newInstance() {
+      return new MedicinesFragment();
    }
 
    @Override
-   public void setPresenter(@NonNull MainContract.Presenter presenter) {
+   public void setPresenter(@NonNull MedicinesContract.Presenter presenter) {
       mPresenter = checkNotNull(presenter);
    }
 

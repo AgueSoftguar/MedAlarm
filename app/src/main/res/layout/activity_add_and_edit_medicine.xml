@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    tools:context=".main.addeditmedicine.AddEditMedicineActivity">
+    tools:context=".addeditmedicine.AddEditMedicineActivity">
 
     <android.support.design.widget.AppBarLayout
         android:elevation="4dp"

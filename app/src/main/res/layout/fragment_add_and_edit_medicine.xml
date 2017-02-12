@@ -4,7 +4,7 @@
     android:animateLayoutChanges="true"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context="com.aguesoftguar.medalarm.main.addeditmedicine.AddEditMedicineFragment"
+    tools:context=".addeditmedicine.AddEditMedicineFragment"
     tools:showIn="@layout/activity_add_and_edit_medicine">
 
     <!-- Main container -->

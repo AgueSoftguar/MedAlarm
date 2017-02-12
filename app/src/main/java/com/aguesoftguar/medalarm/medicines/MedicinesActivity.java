@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2016, Agüesoftgüar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aguesoftguar.medalarm.main;
+package com.aguesoftguar.medalarm.medicines;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,20 +22,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.aguesoftguar.medalarm.ActivityUtils;
 import com.aguesoftguar.medalarm.R;
+import com.aguesoftguar.medalarm.util.ActivityUtils;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  * Main {@link android.app.Activity} of the MedAlarm application.
  */
-public class MainActivity extends AppCompatActivity {
+public class MedicinesActivity extends AppCompatActivity {
 
-   private static final String TAG = "MainActivity";
+   private static final String TAG = "MedicinesActivity";
 
    private FirebaseAnalytics firebaseAnalytics;
 
-   private MainPresenter mainPresenter;
+   private MedicinesPresenter medicinesPresenter;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +48,17 @@ public class MainActivity extends AppCompatActivity {
       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);
 
-      MainFragment mainFragment =
-         (MainFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
-      if (mainFragment == null) {
+      MedicinesFragment medicinesFragment =
+         (MedicinesFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
+      if (medicinesFragment == null) {
          // Create the fragment
-         mainFragment = MainFragment.newInstance();
+         medicinesFragment = MedicinesFragment.newInstance();
          ActivityUtils.addFragmentToActivity(
-            getSupportFragmentManager(), mainFragment, R.id.content_frame);
+            getSupportFragmentManager(), medicinesFragment, R.id.content_frame);
       }
 
       // Create the presenter
-      mainPresenter = new MainPresenter(mainFragment);
+      medicinesPresenter = new MedicinesPresenter(medicinesFragment);
    }
 
    @Override

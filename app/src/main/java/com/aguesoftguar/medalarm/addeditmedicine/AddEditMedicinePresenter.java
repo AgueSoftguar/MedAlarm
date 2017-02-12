@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2016, Agüesoftgüar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aguesoftguar.medalarm.main.addeditmedicine;
+package com.aguesoftguar.medalarm.addeditmedicine;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

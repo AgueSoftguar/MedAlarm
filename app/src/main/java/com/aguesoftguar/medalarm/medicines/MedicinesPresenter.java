@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2016, Agüesoftgüar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package com.aguesoftguar.medalarm.main;
+package com.aguesoftguar.medalarm.medicines;
 
 import android.support.annotation.NonNull;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Listens to user actions from the UI ({@link MainFragment}), retrieves the data and updates the
+ * Listens to user actions from the UI ({@link MedicinesFragment}), retrieves the data and updates the
  * UI as required.
  */
-public class MainPresenter implements MainContract.Presenter {
+public class MedicinesPresenter implements MedicinesContract.Presenter {
 
-   private final MainContract.View medicinesView;
+   private final MedicinesContract.View medicinesView;
 
-   public MainPresenter(@NonNull MainContract.View medicinesView) {
-      this.medicinesView = checkNotNull(medicinesView, "tasksView cannot be null!");
+   public MedicinesPresenter(@NonNull MedicinesContract.View medicinesView) {
+      this.medicinesView = checkNotNull(medicinesView, "medicinesView cannot be null!");
       this.medicinesView.setPresenter(this);
    }
 

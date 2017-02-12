@@ -5,7 +5,7 @@
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context="com.aguesoftguar.medalarm.main.MainActivity">
+    tools:context="com.aguesoftguar.medalarm.medicines.MedicinesActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"

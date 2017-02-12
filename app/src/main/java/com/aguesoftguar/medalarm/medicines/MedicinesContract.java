@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2016, Agüesoftgüar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aguesoftguar.medalarm.main;
+package com.aguesoftguar.medalarm.medicines;
 
 import com.aguesoftguar.medalarm.BasePresenter;
 import com.aguesoftguar.medalarm.BaseView;
@@ -23,7 +23,7 @@ import com.aguesoftguar.medalarm.BaseView;
  * This specifies the contract between the view and the presenter.
  */
 @SuppressWarnings("javadoctype")
-public interface MainContract {
+public interface MedicinesContract {
 
    interface View extends BaseView<Presenter> {
 
