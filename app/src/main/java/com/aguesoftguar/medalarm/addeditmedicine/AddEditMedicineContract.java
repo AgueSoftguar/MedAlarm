@@ -14,19 +14,25 @@
  * limitations under the License.
  */
 
-package com.aguesoftguar.medalarm;
+package com.aguesoftguar.medalarm.addeditmedicine;
+
+import com.aguesoftguar.medalarm.BasePresenter;
+import com.aguesoftguar.medalarm.BaseView;
 
 /**
- * Interface used as a basis for a View in the MVP architecture.
- *
- * @param <T> {@link BasePresenter} object.
+ * This specifies the contract between the view and the presenter.
  */
-public interface BaseView<T extends BasePresenter> {
+@SuppressWarnings("javadoctype")
+public interface AddEditMedicineContract {
 
-   /**
-    * Set the {@link BasePresenter} used for this View.
-    *
-    * @param presenter The Presenter used for the View.
-    */
-   void setPresenter(T presenter);
+   interface View extends BaseView<Presenter> {
+
+      boolean isActive();
+
+   }
+
+   interface Presenter extends BasePresenter {
+
+      void saveMedicine();
+   }
 }

@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- General actions -->
+    <string name="action_about">Acerca de</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_accept">Aceptar</string>
+    <string name="action_cancel">Cancelar</string>
+
+    <!-- Main screen -->
+    <string name="main_screen_empty_list">Aún no has añadido ningún medicamento.\nPulsa sobre el botón para añadir uno nuevo.</string>
+
+    <!-- Add an edit screen -->
+    <string name="add_medicine_write_medicine_name_hint">Escribe el nombre del medicamento</string>
+    <string name="add_medicine_add_patient_hint">Añadir paciente</string>
+    <string name="add_medicine_initial_date_title">Fecha inicial</string>
+    <string name="add_medicine_add_interval_hint">Añadir intervalo entre dosis</string>
+    <string name="add_medicine_final_date_title">Fecha de fin</string>
+    <string name="add_medicine_chronic_title">Crónico</string>
+    <string name="add_medicine_alarm_title">Alarma</string>
+    <string name="add_medicine_notification_title">Notificación</string>
+    <string name="add_medicine_color_title">Color</string>
+    <string name="add_medicine_image_title">Imagen</string>
+
+</resources>
