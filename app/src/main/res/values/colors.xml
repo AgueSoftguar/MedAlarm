@@ -10,6 +10,7 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#777777</color>
     <color name="divider">#DDDDDD</color>
+    <color name="gray">#BDBDBD</color>
 
     <!-- Add and edit medicine -->
     <color name="add_and_edit_medicine_edit_text_hint">#757575</color>

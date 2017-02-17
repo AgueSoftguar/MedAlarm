@@ -26,4 +26,10 @@
     <string name="add_medicine_color_title">Color</string>
     <string name="add_medicine_image_title">Image</string>
 
+    <!-- Add patient dialog -->
+    <string name="add_patient_title">Add patient</string>
+    <string name="add_patient_new_title">Add new patient</string>
+    <string name="add_patient_name_empty_error">Patient name can\'t be empty</string>
+    <string name="add_patient_name_hint">Patient name</string>
+
 </resources>
