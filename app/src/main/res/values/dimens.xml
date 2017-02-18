@@ -1,9 +1,15 @@
 <resources>
 
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Default screen margins, per the Android Design guidelines -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Dialog default dimens, per the Android Design guidelines -->
+    <dimen name="dialog_horizontal_margin">24dp</dimen>
+    <dimen name="dialog_content_view_top_margin">20dp</dimen>
+    <dimen name="dialog_content_view_bottom_margin">16dp</dimen>
+    <dimen name="dialog_row_height">56dp</dimen>
 
     <!-- Main screen -->
     <dimen name="main_screen_empty_list_text_size">19sp</dimen>
@@ -16,5 +22,11 @@
     <dimen name="add_and_edit_medicine_first_column_width">56dp</dimen>
     <dimen name="add_and_edit_medicine_separator_height">1dp</dimen>
     <dimen name="add_and_edit_medicine_text_size">16sp</dimen>
+
+    <!-- Add patient dialog -->
+    <dimen name="add_patient_row_text_padding">16dp</dimen>
+    <dimen name="add_patient_row_text_size">16sp</dimen>
+    <dimen name="add_patient_row_image_padding">8dp</dimen>
+    <dimen name="add_patient_row_image_size">40dp</dimen>
 
 </resources>

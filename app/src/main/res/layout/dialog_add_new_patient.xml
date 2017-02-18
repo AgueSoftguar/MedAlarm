@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/inset_dialog_background"
+    android:gravity="center_vertical"
+    android:layout_height="@dimen/dialog_row_height"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:background="@drawable/shape_oval_gray"
+        android:id="@+id/new_patient_photo"
+        android:layout_height="@dimen/add_patient_row_image_size"
+        android:layout_width="@dimen/add_patient_row_image_size"
+        android:padding="@dimen/add_patient_row_image_padding"
+        android:src="@drawable/ic_person_white_24dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/new_patient_name_inputlayout"
+        android:layout_marginStart="@dimen/add_patient_row_text_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/new_patient_name_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_patient_name_hint"
+            android:textColor="@color/primary_text"
+            android:textColorHint="@color/secondary_text"
+            android:textSize="@dimen/add_patient_row_text_size"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

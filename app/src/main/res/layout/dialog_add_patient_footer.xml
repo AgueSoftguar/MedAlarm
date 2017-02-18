@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+    <!-- LinearLayout inside the FrameLayout is needed to set the proper height to a ListView footer -->
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:id="@+id/add_patient_row"
+        android:layout_height="@dimen/dialog_row_height"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/dialog_horizontal_margin"
+        android:paddingStart="@dimen/dialog_horizontal_margin"
+        android:layout_marginBottom="@dimen/dialog_content_view_bottom_margin">
+
+        <ImageView
+            android:background="@drawable/shape_oval_gray"
+            android:layout_height="@dimen/add_patient_row_image_size"
+            android:layout_width="@dimen/add_patient_row_image_size"
+            android:padding="@dimen/add_patient_row_image_padding"
+            android:src="@drawable/ic_add_white_16dp" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/add_patient_row_text_padding"
+            android:layout_width="wrap_content"
+            android:text="@string/add_patient_new_title"
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/add_patient_row_text_size" />
+
+    </LinearLayout>
+</FrameLayout>

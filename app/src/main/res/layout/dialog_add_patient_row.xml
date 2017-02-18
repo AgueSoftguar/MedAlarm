@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    android:layout_height="@dimen/dialog_row_height"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/dialog_horizontal_margin"
+    android:paddingStart="@dimen/dialog_horizontal_margin">
+
+    <ImageView
+        android:background="@drawable/shape_oval_primary"
+        android:id="@+id/patient_image"
+        android:layout_height="@dimen/add_patient_row_image_size"
+        android:layout_width="@dimen/add_patient_row_image_size"
+        android:padding="@dimen/add_patient_row_image_padding"
+        android:src="@drawable/ic_person_white_24dp" />
+
+    <TextView
+        android:id="@+id/patient_name"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/add_patient_row_text_padding"
+        android:layout_width="wrap_content"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/add_patient_row_text_size"
+        tools:text="@string/add_patient_new_title" />
+
+</LinearLayout>
