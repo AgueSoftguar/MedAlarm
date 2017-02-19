@@ -20,6 +20,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.aguesoftguar.medalarm.data.Medicine;
 import com.aguesoftguar.medalarm.data.Patient;
 import com.aguesoftguar.medalarm.data.source.PatientsDataSource;
 import com.aguesoftguar.medalarm.data.source.PatientsRepository;
@@ -69,9 +70,10 @@ public class AddEditMedicinePresenter implements AddEditMedicineContract.Present
       loadPatients();
    }
 
-   @Override public void saveMedicine() {
+   @Override
+   public void saveMedicine(Medicine medicine) {
       if (isNewMedicine()) {
-         createMedicine();
+         createMedicine(medicine);
       } else {
          updateMedicine();
       }
@@ -81,8 +83,19 @@ public class AddEditMedicinePresenter implements AddEditMedicineContract.Present
       return medicineId == null;
    }
 
-   private void createMedicine() {
-      // TODO Handle medicine fields errors or save medicine in Firebase database
+   private void createMedicine(Medicine medicine) {
+      patientsRepository.saveMedicine(medicine.getPatientUuid(), medicine,
+         new PatientsDataSource.CreateMedicineCallback() {
+         @Override
+         public void onMedicineSaved(Medicine medicine) {
+            Log.d(TAG, "onMedicineSaved");
+         }
+
+         @Override
+         public void onSaveFailed(String errorDescription) {
+            Log.e(TAG, errorDescription);
+         }
+      });
    }
 
    private void updateMedicine() {
@@ -99,8 +112,8 @@ public class AddEditMedicinePresenter implements AddEditMedicineContract.Present
       Patient patient = new Patient(name, photo);
       patientsRepository.savePatient(patient, new PatientsDataSource.CreatePatientCallback() {
          @Override
-         public void onPatientSaved(Patient patient) {
-            addMedicineView.addPatient(patient);
+         public void onPatientSaved(String key, Patient patient) {
+            addMedicineView.addPatient(key, patient);
          }
 
          @Override
@@ -116,8 +129,8 @@ public class AddEditMedicinePresenter implements AddEditMedicineContract.Present
    public void loadPatients() {
       patientsRepository.getPatients(new PatientsDataSource.LoadPatientsCallback() {
          @Override
-         public void onPatientsLoaded(List<Patient> patients) {
-            addMedicineView.loadPatients(patients);
+         public void onPatientsLoaded(List<String> keys, List<Patient> patients) {
+            addMedicineView.loadPatients(keys, patients);
          }
 
          @Override

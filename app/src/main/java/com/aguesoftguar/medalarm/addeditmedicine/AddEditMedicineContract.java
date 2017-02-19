@@ -18,6 +18,7 @@ package com.aguesoftguar.medalarm.addeditmedicine;
 
 import com.aguesoftguar.medalarm.BasePresenter;
 import com.aguesoftguar.medalarm.BaseView;
+import com.aguesoftguar.medalarm.data.Medicine;
 import com.aguesoftguar.medalarm.data.Patient;
 
 import java.util.List;
@@ -32,14 +33,14 @@ public interface AddEditMedicineContract {
 
       boolean isActive();
 
-      void loadPatients(List<Patient> patients);
+      void loadPatients(List<String> keys, List<Patient> patients);
 
-      void addPatient(Patient patient);
+      void addPatient(String key, Patient patient);
    }
 
    interface Presenter extends BasePresenter {
 
-      void saveMedicine();
+      void saveMedicine(Medicine medicine);
 
       void savePatient(String name, String photo);
    }

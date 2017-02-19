@@ -37,9 +37,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class PatientsAdapter extends BaseAdapter {
 
    private List<Patient> patients;
+   private List<String> keys;
    private PatientItemListener itemListener;
 
-   public PatientsAdapter(List<Patient> patients, PatientItemListener patientItemListener) {
+   public PatientsAdapter(List<String> keys, List<Patient> patients,
+                          PatientItemListener patientItemListener) {
+      setKeys(keys);
       setList(patients);
       itemListener = patientItemListener;
    }
@@ -49,7 +52,8 @@ public class PatientsAdapter extends BaseAdapter {
     *
     * @param patients New list of {@link Patient}.
     */
-   public void replaceData(List<Patient> patients) {
+   public void replaceData(List<String> keys, List<Patient> patients) {
+      setKeys(keys);
       setList(patients);
       notifyDataSetChanged();
    }
@@ -59,13 +63,18 @@ public class PatientsAdapter extends BaseAdapter {
     *
     * @param patient New {@link Patient}
     */
-   public void addItem(Patient patient) {
+   public void addItem(String key, Patient patient) {
+      keys.add(key);
       patients.add(patient);
       notifyDataSetChanged();
    }
 
    private void setList(List<Patient> patients) {
       this.patients = checkNotNull(patients);
+   }
+
+   private void setKeys(List<String> keys) {
+      this.keys = checkNotNull(keys);
    }
 
    @Override
@@ -78,13 +87,21 @@ public class PatientsAdapter extends BaseAdapter {
       return patients.get(i);
    }
 
+   /**
+    * Get the row id associated with the {@link Patient}.
+    *
+    * @param i The position of the {@link Patient}.
+    */
+   public String getKey(int i) {
+      return keys.get(i);
+   }
    @Override
    public long getItemId(int i) {
-      return i;
+      return keys.get(i).hashCode();
    }
 
    @Override
-   public View getView(int i, View view, ViewGroup viewGroup) {
+   public View getView(final int i, View view, ViewGroup viewGroup) {
       View rowView = view;
       if (rowView == null) {
          LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
@@ -104,7 +121,7 @@ public class PatientsAdapter extends BaseAdapter {
       rowView.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-            itemListener.onPatientClick(patient);
+            itemListener.onPatientClick(patient, i);
          }
       });
 
@@ -121,6 +138,6 @@ public class PatientsAdapter extends BaseAdapter {
        *
        * @param clickedPatient {@link Patient} object related with the selected position.
        */
-      void onPatientClick(Patient clickedPatient);
+      void onPatientClick(Patient clickedPatient, int position);
    }
 }

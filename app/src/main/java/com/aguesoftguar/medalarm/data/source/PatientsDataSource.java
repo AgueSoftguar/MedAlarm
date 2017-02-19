@@ -18,6 +18,7 @@ package com.aguesoftguar.medalarm.data.source;
 
 import android.support.annotation.NonNull;
 
+import com.aguesoftguar.medalarm.data.Medicine;
 import com.aguesoftguar.medalarm.data.Patient;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public interface PatientsDataSource {
     */
    interface LoadPatientsCallback {
 
-      void onPatientsLoaded(List<Patient> patients);
+      void onPatientsLoaded(List<String> keys, List<Patient> patients);
 
       void onDataNotAvailable(String errorDescription);
    }
@@ -42,7 +43,17 @@ public interface PatientsDataSource {
     */
    interface CreatePatientCallback {
 
-      void onPatientSaved(Patient patient);
+      void onPatientSaved(String key, Patient patient);
+
+      void onSaveFailed(String errorDescription);
+   }
+
+   /**
+    * Callbacks to save a medicine.
+    */
+   interface CreateMedicineCallback {
+
+      void onMedicineSaved(Medicine medicine);
 
       void onSaveFailed(String errorDescription);
    }
@@ -65,4 +76,16 @@ public interface PatientsDataSource {
     *                is fired if fail to save the patient.
     */
    void savePatient(@NonNull Patient patient, @NonNull CreatePatientCallback callback);
+
+   /**
+    * Save a medicine into
+    * {@link  <a href="https://firebase.google.com/docs/database/?hl=es">the realtime database</a>}.
+    * @param medicine {@link Medicine} to save.
+    * <p>
+    * Note: {@link CreateMedicineCallback#onSaveFailed(String errorDescription)}
+    *                is fired if fail to save the medicine.
+    */
+   void saveMedicine(@NonNull String patientId, @NonNull Medicine medicine,
+                     @NonNull CreateMedicineCallback callback);
+
 }

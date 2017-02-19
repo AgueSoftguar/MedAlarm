@@ -32,11 +32,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -45,6 +47,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.aguesoftguar.medalarm.R;
+import com.aguesoftguar.medalarm.data.Medicine;
 import com.aguesoftguar.medalarm.data.Patient;
 import com.aguesoftguar.medalarm.util.ViewUtils;
 import com.aguesoftguar.medalarm.views.colorpicker.ColorPickerPaletteView;
@@ -63,11 +66,12 @@ import butterknife.ButterKnife;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Main UI for the add task screen. Users can enter a task title and description.
+ * Main UI for the add medicine screen.
  */
 public class AddEditMedicineFragment extends Fragment implements AddEditMedicineContract.View {
 
    public static final String ARGUMENT_EDIT_MEDICINE_ID = "EDIT_MEDICINE_ID";
+   private static final String TAG = AddEditMedicineFragment.class.getName();
 
    @BindView(R.id.add_patient_textview) TextView addPatientTextView;
    @BindView(R.id.initial_date_day_textview) TextView initialDateDayTextView;
@@ -88,6 +92,12 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
    private PatientsAdapter patientsAdapter;
    private AlertDialog selectPatientDialog;
 
+   private int positionPatientSelected = -1;
+   private int colorMedicineSelected = -1;
+
+   /**
+    *
+    */
    public AddEditMedicineFragment() {
       // Required empty public constructor
    }
@@ -136,11 +146,11 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
     * Initialize the patient views behavior.
     */
    private void initPatientViews() {
-
-      patientsAdapter = new PatientsAdapter(new ArrayList<Patient>(0),
+      patientsAdapter = new PatientsAdapter(new ArrayList<String>(0), new ArrayList<Patient>(0),
          new PatientsAdapter.PatientItemListener() {
-            @Override public void onPatientClick(Patient clickedPatient) {
+            @Override public void onPatientClick(Patient clickedPatient, int position) {
                addPatientTextView.setText(clickedPatient.getName());
+               positionPatientSelected = position;
                selectPatientDialog.dismiss();
             }
          });
@@ -546,13 +556,13 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
       final Resources res = getResources();
 
       int[] colors = res.getIntArray(R.array.medicines_colors);
-      //TODO 02/06/2017 Selected color must be the color saved in the firebase data base
       //noinspection deprecation
-      int selectedColor = res.getColor(R.color.medicine_red);
+      if (colorMedicineSelected == -1)
+         colorMedicineSelected = res.getColor(R.color.medicine_red);
 
       //FIXME 09/04/2017 Change the size depending of the device resolution (tablet or mobile)
       colorPickerPalette.init(colorPickerPalette.SIZE_SMALL, res.getInteger(R.integer.color_picker_columns));
-      colorPickerPalette.drawPalette(colors, selectedColor);
+      colorPickerPalette.drawPalette(colors, colorMedicineSelected);
 
       AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext())
          .setTitle(R.string.color_picker_default_title)
@@ -570,8 +580,7 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
 
                @Override
                public void onClick(View view) {
-                  int selectedColor = colorPickerPalette.getSelectedColor();
-                  //TODO 24/02/2017 Save the value in the repository
+                  colorMedicineSelected = colorPickerPalette.getSelectedColor();
                   dialog.dismiss();
                }
             });
@@ -593,18 +602,63 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
       inflater.inflate(R.menu.add_and_edit_medicine_settings, menu);
    }
 
+   @Override
+   public boolean onOptionsItemSelected(MenuItem item) {
+      switch (item.getItemId()) {
+
+         case R.id.save_medicine:
+            LayoutInflater inflater =
+               LayoutInflater.from(AddEditMedicineFragment.this.getContext());
+            View contentView = inflater.inflate(R.layout.activity_add_and_edit_medicine, null);
+
+            EditText medicineNameEditText =
+                    (EditText) contentView.findViewById(R.id.medicine_name_edittext);
+
+            String medicineName = medicineNameEditText.getText().toString();
+            String patientId = patientsAdapter.getKey(positionPatientSelected);
+            String initialDateDay = initialDateDayTextView.getText().toString();
+            String initialDateHour = initialDateHourTextView.getText().toString();
+            String addDosesInterval = addDosesIntervalTextView.getText().toString();
+
+            String finalDateDay = chronicMedicineSwitch.isChecked() ? ""
+               : finalDateDayTextView.getText().toString();
+            String finalDateHour = chronicMedicineSwitch.isChecked() ? ""
+               : finalDateHourTextView.getText().toString();
+
+            int reminder = selectAlarmRadioButton.isChecked() ? 0 : 1;
+            int color = selectColorRadioButton.isChecked() ? colorMedicineSelected : -1;
+            boolean photo = selectImageRadioButton.isChecked();
+
+            Medicine medicine = new Medicine.MedicineBuilder(medicineName, patientId, initialDateDay,
+               initialDateHour, addDosesInterval).
+               finalDateDay(finalDateDay).
+               finalDateHour(finalDateHour).
+               reminder(reminder).
+               color(color).
+               photo(photo).
+               build();
+            presenter.saveMedicine(medicine);
+            return true;
+         default:
+            break;
+      }
+
+      return false;
+   }
+
    @Override public boolean isActive() {
       return isAdded();
    }
 
    @Override
-   public void loadPatients(List<Patient> patients) {
-      patientsAdapter.replaceData(patients);
+   public void loadPatients(List<String> keys, List<Patient> patients) {
+      patientsAdapter.replaceData(keys, patients);
    }
 
    @Override
-   public void addPatient(Patient patient) {
-      patientsAdapter.addItem(patient);
+   public void addPatient(String key, Patient patient) {
+      patientsAdapter.addItem(key, patient);
+      positionPatientSelected = patientsAdapter.getCount() - 1;
    }
 
 }
