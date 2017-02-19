@@ -22,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.aguesoftguar.medalarm.R;
+import com.aguesoftguar.medalarm.data.source.PatientsRepository;
 import com.aguesoftguar.medalarm.util.ActivityUtils;
 
 /**
@@ -78,6 +79,7 @@ public class AddEditMedicineActivity extends AppCompatActivity {
       addEditMedicinePresenter = new AddEditMedicinePresenter(
          medicineId,
          addEditMedicineFragment,
+         PatientsRepository.getInstance(),
          shouldLoadDataFromRepo);
 
       addEditMedicineFragment.setPresenter(addEditMedicinePresenter);

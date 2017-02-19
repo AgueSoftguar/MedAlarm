@@ -54,8 +54,18 @@ public class PatientsAdapter extends BaseAdapter {
       notifyDataSetChanged();
    }
 
-   private void setList(List<Patient> tasks) {
-      patients = checkNotNull(tasks);
+   /**
+    * Add new {@link Patient} into the current data.
+    *
+    * @param patient New {@link Patient}
+    */
+   public void addItem(Patient patient) {
+      patients.add(patient);
+      notifyDataSetChanged();
+   }
+
+   private void setList(List<Patient> patients) {
+      this.patients = checkNotNull(patients);
    }
 
    @Override

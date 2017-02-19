@@ -49,6 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -75,10 +76,10 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
    @BindView(R.id.select_color_radiobutton) RadioButton selectColorRadioButton;
    @BindView(R.id.select_image_radiobutton) RadioButton selectImageRadioButton;
 
-   // TODO 17/02/2017 Remove this list and get the patients from the repository
-   private ArrayList<Patient> patients = new ArrayList<>();
-
    private AddEditMedicineContract.Presenter presenter;
+
+   private PatientsAdapter patientsAdapter;
+   private AlertDialog selectPatientDialog;
 
    /**
     *
@@ -96,6 +97,17 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
       return new AddEditMedicineFragment();
    }
 
+   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      patientsAdapter = new PatientsAdapter(new ArrayList<Patient>(0),
+         new PatientsAdapter.PatientItemListener() {
+            @Override public void onPatientClick(Patient clickedPatient) {
+               addPatientTextView.setText(clickedPatient.getName());
+               selectPatientDialog.dismiss();
+            }
+         });
+   }
+
    @Override public void onResume() {
       super.onResume();
       presenter.start();
@@ -110,10 +122,6 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
                                       Bundle savedInstanceState) {
       View rootView = inflater.inflate(R.layout.fragment_add_and_edit_medicine, container, false);
       ButterKnife.bind(this, rootView);
-
-      // TODO 17/02/2017 Remove the following lines when the repository is implemented
-      patients.add(new Patient("Sara", null));
-      patients.add(new Patient("Fran", null));
 
       // Show a dialog to select the patient when clicking the proper text view
       addPatientTextView.setOnClickListener(new View.OnClickListener() {
@@ -249,26 +257,19 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
       dialogBuilder.setTitle(getString(R.string.add_patient_title));
       dialogBuilder.setView(contentView);
 
-      final AlertDialog alertDialog = dialogBuilder.create();
+      selectPatientDialog = dialogBuilder.create();
 
       ListView patientsList = (ListView) contentView.findViewById(R.id.patients_listview);
       patientsList.addFooterView(footerView);
-      PatientsAdapter patientsAdapter = new PatientsAdapter(patients, new PatientsAdapter.PatientItemListener() {
-         @Override public void onPatientClick(Patient clickedPatient) {
-            addPatientTextView.setText(clickedPatient.getName());
-            alertDialog.dismiss();
-         }
-      });
       patientsList.setAdapter(patientsAdapter);
-
       footerView.setOnClickListener(new View.OnClickListener() {
          @Override public void onClick(View v) {
             showAddNewPatientDialog();
-            alertDialog.dismiss();
+            selectPatientDialog.dismiss();
          }
       });
 
-      alertDialog.show();
+      selectPatientDialog.show();
    }
 
    /**
@@ -301,7 +302,7 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
                      patientNameInputLayout.setError(getResources().getString(R.string.add_patient_name_empty_error));
                   } else {
                      patientNameInputLayout.setErrorEnabled(false);
-                     patients.add(new Patient(patientNameEditText.getText().toString(), null));
+                     presenter.savePatient(patientNameEditText.getText().toString(), null);
                      addPatientTextView.setText(patientNameEditText.getText().toString());
                      dialog.dismiss();
                   }
@@ -329,4 +330,15 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
    @Override public boolean isActive() {
       return isAdded();
    }
+
+   @Override
+   public void loadPatients(List<Patient> patients) {
+      patientsAdapter.replaceData(patients);
+   }
+
+   @Override
+   public void addPatient(Patient patient) {
+      patientsAdapter.addItem(patient);
+   }
+
 }
