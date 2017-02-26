@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +37,7 @@ import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -127,6 +129,13 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
       addPatientTextView.setOnClickListener(new View.OnClickListener() {
          @Override public void onClick(View v) {
             showSelectPatientDialog();
+         }
+      });
+
+      // Show a dialog to select the doses interval when clicking the proper text view
+      addDosesIntervalTextView.setOnClickListener(new View.OnClickListener() {
+         @Override public void onClick(View v) {
+            showSelectDosesIntervalDialog();
          }
       });
 
@@ -320,6 +329,126 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
       });
 
       alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+      alertDialog.show();
+   }
+
+   /**
+    * Create a custom {@link AlertDialog} to select a medicine doses interval.
+    */
+   public void showSelectDosesIntervalDialog() {
+
+      LayoutInflater inflater = LayoutInflater.from(AddEditMedicineFragment.this.getContext());
+      View contentView = inflater.inflate(R.layout.dialog_select_doses_interval, null);
+
+      final NumberPicker firstValuePicker = (NumberPicker) contentView.findViewById(R.id.select_doses_interval_first_value);
+      final NumberPicker secondValuePicker = (NumberPicker) contentView.findViewById(R.id.select_doses_interval_second_value);
+      final NumberPicker thirdValuePicker = (NumberPicker) contentView.findViewById(R.id.select_doses_interval_third_value);
+      final TextView hourSeparator = (TextView) contentView.findViewById(R.id.select_doses_interval_hour_separator);
+
+      final Resources res = getResources();
+
+      firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_hours));
+      firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_hours));
+
+      secondValuePicker.setMinValue(res.getInteger(R.integer.picker_min_minutes));
+      secondValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_minutes));
+
+      final String[] thirdValuePickerValues = {
+         res.getQuantityString(R.plurals.select_doses_interval_hours, 2).toUpperCase(),
+         res.getQuantityString(R.plurals.select_doses_interval_days, 2).toUpperCase(),
+         res.getQuantityString(R.plurals.select_doses_interval_weeks, 2).toUpperCase(),
+         res.getQuantityString(R.plurals.select_doses_interval_months, 2).toUpperCase()
+      };
+      thirdValuePicker.setMinValue(0);
+      thirdValuePicker.setMaxValue(thirdValuePickerValues.length - 1);
+      thirdValuePicker.setDisplayedValues(thirdValuePickerValues);
+
+      thirdValuePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+         @Override
+         public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+            if (thirdValuePickerValues[newVal].equalsIgnoreCase(
+               getResources().getQuantityString(R.plurals.select_doses_interval_hours, 2))) {
+               // When HOURS option is selected, values go from 0 to 23
+               firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_hours));
+               firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_hours));
+               hourSeparator.setVisibility(View.VISIBLE);
+               secondValuePicker.setVisibility(View.VISIBLE);
+            } else if (thirdValuePickerValues[newVal].equalsIgnoreCase(
+               getResources().getQuantityString(R.plurals.select_doses_interval_days, 2))) {
+               // When DAYS option is selected, values go from 1 to 31
+               firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_days));
+               firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_days));
+               hourSeparator.setVisibility(View.GONE);
+               secondValuePicker.setVisibility(View.GONE);
+            } else if (thirdValuePickerValues[newVal].equalsIgnoreCase(
+               getResources().getQuantityString(R.plurals.select_doses_interval_weeks, 2))) {
+               // When WEEKS option is selected, values go from 1 to 20
+               firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_weeks));
+               firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_weeks));
+               hourSeparator.setVisibility(View.GONE);
+               secondValuePicker.setVisibility(View.GONE);
+            } else if (thirdValuePickerValues[newVal].equalsIgnoreCase(
+               getResources().getQuantityString(R.plurals.select_doses_interval_months, 2))) {
+               // When MONTH option is selected, values go from 1 to 12
+               firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_months));
+               firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_months));
+               hourSeparator.setVisibility(View.GONE);
+               secondValuePicker.setVisibility(View.GONE);
+            }
+         }
+      });
+
+      final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddEditMedicineFragment.this.getContext());
+      dialogBuilder.setTitle(getString(R.string.select_doses_interval_title));
+      dialogBuilder.setView(contentView);
+      dialogBuilder.setPositiveButton(R.string.action_accept, null);
+      dialogBuilder.setNegativeButton(R.string.action_cancel, null);
+
+      final AlertDialog alertDialog = dialogBuilder.create();
+      alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+         @Override
+         public void onShow(final DialogInterface dialog) {
+
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+
+               @Override
+               public void onClick(View view) {
+                  int firstValue = firstValuePicker.getValue();
+                  int secondValue = secondValuePicker.getValue();
+                  String thirdValue = thirdValuePickerValues[thirdValuePicker.getValue()];
+
+                  String textLabel = "";
+                  if (thirdValue.equalsIgnoreCase(
+                     res.getQuantityString(R.plurals.select_doses_interval_hours, 2))) {
+                     textLabel = res.getQuantityString(R.plurals.add_medicine_add_interval_hours_text, firstValue,
+                        firstValue + ":" + secondValue);
+                  } else if (thirdValue.equalsIgnoreCase(
+                     res.getQuantityString(R.plurals.select_doses_interval_days, 2))) {
+                     textLabel = res.getQuantityString(R.plurals.add_medicine_add_interval_days_text, firstValue, firstValue);
+                  } else if (thirdValue.equalsIgnoreCase(
+                     res.getQuantityString(R.plurals.select_doses_interval_weeks, 2))) {
+                     textLabel = res.getQuantityString(R.plurals.add_medicine_add_interval_weeks_text, firstValue, firstValue);
+                  } else if (thirdValue.equalsIgnoreCase(
+                     res.getQuantityString(R.plurals.select_doses_interval_months, 2))) {
+                     textLabel = res.getQuantityString(R.plurals.add_medicine_add_interval_months_text, firstValue, firstValue);
+                  }
+                  addDosesIntervalTextView.setText(textLabel);
+                  //TODO 24/02/2017 Save the value in the repository
+                  dialog.dismiss();
+               }
+            });
+
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+
+               @Override
+               public void onClick(View view) {
+                  dialog.dismiss();
+               }
+            });
+         }
+      });
+
       alertDialog.show();
    }
 
