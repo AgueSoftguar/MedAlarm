@@ -16,6 +16,22 @@
     <string name="add_medicine_add_patient_hint">Añadir paciente</string>
     <string name="add_medicine_initial_date_title">Fecha inicial</string>
     <string name="add_medicine_add_interval_hint">Añadir intervalo entre dosis</string>
+    <plurals name="add_medicine_add_interval_hours_text">
+        <item quantity="one">Cada %s hora</item>
+        <item quantity="other">Cada %s horas</item>
+    </plurals>
+    <plurals name="add_medicine_add_interval_days_text">
+        <item quantity="one">Cada %d día</item>
+        <item quantity="other">Cada %d días</item>
+    </plurals>
+    <plurals name="add_medicine_add_interval_weeks_text">
+        <item quantity="one">Cada %d semana</item>
+        <item quantity="other">Cada %d semanas</item>
+    </plurals>
+    <plurals name="add_medicine_add_interval_months_text">
+        <item quantity="one">Cada %d mes</item>
+        <item quantity="other">Cada %d meses</item>
+    </plurals>
     <string name="add_medicine_final_date_title">Fecha de fin</string>
     <string name="add_medicine_chronic_title">Crónico</string>
     <string name="add_medicine_alarm_title">Alarma</string>
@@ -28,5 +44,25 @@
     <string name="add_patient_new_title">Añadir nuevo paciente</string>
     <string name="add_patient_name_empty_error">El nombre del paciente no puede estar vacío</string>
     <string name="add_patient_name_hint">Nombre del paciente</string>
+
+    <!-- Select doses interval dialog -->
+    <string name="select_doses_interval_title">Intervalo entre dosis</string>
+    <string name="select_doses_interval_label">Cada</string>
+    <plurals name="select_doses_interval_hours">
+        <item quantity="one">Hora</item>
+        <item quantity="other">Horas</item>
+    </plurals>
+    <plurals name="select_doses_interval_days">
+        <item quantity="one">Día</item>
+        <item quantity="other">Días</item>
+    </plurals>
+    <plurals name="select_doses_interval_weeks">
+        <item quantity="one">Semana</item>
+        <item quantity="other">Semanas</item>
+    </plurals>
+    <plurals name="select_doses_interval_months">
+        <item quantity="one">Mes</item>
+        <item quantity="other">Meses</item>
+    </plurals>
 
 </resources>

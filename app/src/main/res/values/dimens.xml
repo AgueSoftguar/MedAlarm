@@ -29,4 +29,11 @@
     <dimen name="add_patient_row_image_padding">8dp</dimen>
     <dimen name="add_patient_row_image_size">40dp</dimen>
 
+    <!-- Select doses interval dialog -->
+    <dimen name="select_doses_interval_picker_divider_distance">35dp</dimen>
+    <dimen name="select_doses_interval_picker_height">128dp</dimen>
+    <dimen name="select_doses_interval_picker_width">48dp</dimen>
+    <dimen name="select_doses_interval_picker_margin">8dp</dimen>
+    <dimen name="select_doses_interval_text_size">16sp</dimen>
+
 </resources>

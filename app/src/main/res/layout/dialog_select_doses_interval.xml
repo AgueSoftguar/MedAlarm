@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/select_doses_interval_label"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/select_doses_interval_text_size" />
+
+    <com.aguesoftguar.medalarm.views.CustomNumberPicker
+        android:focusable="false"
+        android:id="@+id/select_doses_interval_first_value"
+        android:layout_height="@dimen/select_doses_interval_picker_height"
+        android:layout_marginStart="@dimen/select_doses_interval_picker_margin"
+        android:layout_width="@dimen/select_doses_interval_picker_width"
+        app:dividerColor="@color/accent"
+        app:dividerDistance="@dimen/select_doses_interval_picker_divider_distance"
+        app:textSize="@dimen/select_doses_interval_text_size" />
+
+    <TextView
+        android:id="@+id/select_doses_interval_hour_separator"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/select_doses_interval_picker_margin"
+        android:layout_width="wrap_content"
+        android:text="@string/select_doses_hour_separator"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/select_doses_interval_text_size" />
+
+    <com.aguesoftguar.medalarm.views.CustomNumberPicker
+        android:focusable="false"
+        android:id="@+id/select_doses_interval_second_value"
+        android:layout_height="@dimen/select_doses_interval_picker_height"
+        android:layout_marginStart="@dimen/select_doses_interval_picker_margin"
+        android:layout_width="@dimen/select_doses_interval_picker_width"
+        app:dividerColor="@color/accent"
+        app:dividerDistance="@dimen/select_doses_interval_picker_divider_distance"
+        app:textSize="@dimen/select_doses_interval_text_size" />
+
+    <com.aguesoftguar.medalarm.views.CustomNumberPicker
+        android:focusable="false"
+        android:id="@+id/select_doses_interval_third_value"
+        android:layout_height="@dimen/select_doses_interval_picker_height"
+        android:layout_marginStart="@dimen/select_doses_interval_picker_margin"
+        android:layout_width="wrap_content"
+        app:dividerColor="@color/accent"
+        app:dividerDistance="@dimen/select_doses_interval_picker_divider_distance"
+        app:textSize="@dimen/select_doses_interval_text_size" />
+
+</LinearLayout>

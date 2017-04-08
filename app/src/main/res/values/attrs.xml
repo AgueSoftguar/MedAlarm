@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Custom number picker styleable values -->
+    <declare-styleable name="CustomNumberPicker">
+        <attr name="dividerDistance" format="dimension" />
+        <attr name="dividerColor" format="color" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+
+</resources>
