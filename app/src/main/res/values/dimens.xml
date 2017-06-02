@@ -31,9 +31,9 @@
     <dimen name="main_screen_empty_list_text_size">19sp</dimen>
 
     <!-- Add and edit medicine screen -->
-    <dimen name="add_and_edit_medicine_row_height">64dp</dimen>
-    <dimen name="add_and_edit_medicine_row_vertical_margin">24dp</dimen>
-    <dimen name="add_and_edit_medicine_row_vertical_margin_small">18dp</dimen>
+    <dimen name="add_and_edit_medicine_row_height">48dp</dimen>
+    <dimen name="add_and_edit_medicine_row_vertical_margin">8dp</dimen>
+    <dimen name="add_and_edit_medicine_first_column_vertical_margin">20dp</dimen>
     <dimen name="add_and_edit_medicine_icon_size">24dp</dimen>
     <dimen name="add_and_edit_medicine_first_column_width">56dp</dimen>
     <dimen name="add_and_edit_medicine_separator_height">1dp</dimen>
@@ -51,5 +51,11 @@
     <dimen name="select_doses_interval_picker_width">48dp</dimen>
     <dimen name="select_doses_interval_picker_margin">8dp</dimen>
     <dimen name="select_doses_interval_text_size">16sp</dimen>
+
+    <!-- Color picker dialog -->
+    <dimen name="color_item_large">64dp</dimen>
+    <dimen name="color_item_small">48dp</dimen>
+    <dimen name="color_item_margins_large">12dp</dimen>
+    <dimen name="color_item_margins_small">8dp</dimen>
 
 </resources>

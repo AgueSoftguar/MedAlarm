@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="medicines_colors">
+        <item>@color/medicine_red</item>
+        <item>@color/medicine_pink</item>
+        <item>@color/medicine_blue</item>
+        <item>@color/medicine_teal</item>
+        <item>@color/medicine_green</item>
+        <item>@color/medicine_yellow</item>
+        <item>@color/medicine_brown</item>
+        <item>@color/medicine_gray</item>
+    </integer-array>
+
+</resources>

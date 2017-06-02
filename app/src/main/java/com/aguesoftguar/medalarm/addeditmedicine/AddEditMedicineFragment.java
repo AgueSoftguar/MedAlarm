@@ -16,6 +16,7 @@
 
 package com.aguesoftguar.medalarm.addeditmedicine;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -45,6 +46,8 @@ import android.widget.TimePicker;
 
 import com.aguesoftguar.medalarm.R;
 import com.aguesoftguar.medalarm.data.Patient;
+import com.aguesoftguar.medalarm.util.ViewUtils;
+import com.aguesoftguar.medalarm.views.colorpicker.ColorPickerPaletteView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -75,7 +78,9 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
    @BindView(R.id.final_date_hour_textview) TextView finalDateHourTextView;
    @BindView(R.id.select_alarm_radiobutton) RadioButton selectAlarmRadioButton;
    @BindView(R.id.select_notification_radiobutton) RadioButton selectNotificationRadioButton;
+   @BindView(R.id.select_color_row) View selectColorRow;
    @BindView(R.id.select_color_radiobutton) RadioButton selectColorRadioButton;
+   @BindView(R.id.select_image_row) View selectImageRow;
    @BindView(R.id.select_image_radiobutton) RadioButton selectImageRadioButton;
 
    private AddEditMedicineContract.Presenter presenter;
@@ -83,9 +88,6 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
    private PatientsAdapter patientsAdapter;
    private AlertDialog selectPatientDialog;
 
-   /**
-    *
-    */
    public AddEditMedicineFragment() {
       // Required empty public constructor
    }
@@ -101,13 +103,6 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
 
    @Override public void onCreate(@Nullable Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      patientsAdapter = new PatientsAdapter(new ArrayList<Patient>(0),
-         new PatientsAdapter.PatientItemListener() {
-            @Override public void onPatientClick(Patient clickedPatient) {
-               addPatientTextView.setText(clickedPatient.getName());
-               selectPatientDialog.dismiss();
-            }
-         });
    }
 
    @Override public void onResume() {
@@ -125,19 +120,55 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
       View rootView = inflater.inflate(R.layout.fragment_add_and_edit_medicine, container, false);
       ButterKnife.bind(this, rootView);
 
+      // Init all the views and specify their behavior
+      initPatientViews();
+      initDosesIntervalTextView();
+      initDateViews();
+      initChronicMedicineSwitch();
+      initAlarmNotificationRadioButton();
+      initColorImageRadioButton();
+
+      setHasOptionsMenu(true);
+      return rootView;
+   }
+
+   /**
+    * Initialize the patient views behavior.
+    */
+   private void initPatientViews() {
+
+      patientsAdapter = new PatientsAdapter(new ArrayList<Patient>(0),
+         new PatientsAdapter.PatientItemListener() {
+            @Override public void onPatientClick(Patient clickedPatient) {
+               addPatientTextView.setText(clickedPatient.getName());
+               selectPatientDialog.dismiss();
+            }
+         });
+
       // Show a dialog to select the patient when clicking the proper text view
       addPatientTextView.setOnClickListener(new View.OnClickListener() {
          @Override public void onClick(View v) {
             showSelectPatientDialog();
          }
       });
+   }
 
+   /**
+    * Initialize the doses interval view behavior.
+    */
+   private void initDosesIntervalTextView() {
       // Show a dialog to select the doses interval when clicking the proper text view
       addDosesIntervalTextView.setOnClickListener(new View.OnClickListener() {
          @Override public void onClick(View v) {
             showSelectDosesIntervalDialog();
          }
       });
+   }
+
+   /**
+    * Initialize the views related with the initial and final medicine dates.
+    */
+   private void initDateViews() {
 
       // Get the current date
       Date date = new Date();
@@ -182,13 +213,6 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
          }
       });
 
-      // Disable final date and hour when checking the chronic switch
-      chronicMedicineSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-         @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            ((View) finalDateDayTextView.getParent()).setVisibility(isChecked ? View.GONE : View.VISIBLE);
-         }
-      });
-
       // Set the current date in the final date text and show a date picker dialog when clicking it
       finalDateDayTextView.setText(dateFormat.format(date));
       finalDateDayTextView.setOnClickListener(new View.OnClickListener() {
@@ -222,7 +246,31 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
             dialog.show();
          }
       });
+   }
 
+   /**
+    * Initialize the chronic medicine switch button.
+    * <p>
+    * When checking the chronic switch, the final date and hour views must be hidden.
+    */
+   private void initChronicMedicineSwitch() {
+      chronicMedicineSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+         @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//            ((View) finalDateDayTextView.getParent()).setVisibility(isChecked ? View.GONE : View.VISIBLE);
+            if (isChecked) {
+               ViewUtils.createToInvisibleAnim((View) finalDateDayTextView.getParent(), 300, View.GONE).start();
+            } else {
+               ViewUtils.createToVisibleAnim((View) finalDateDayTextView.getParent(), 300).start();
+            }
+         }
+      });
+   }
+
+   /**
+    * Implement alarm/notification radio group behavior. When one of the radio button has clicked, the other
+    * one is unchecked and vice versa.
+    */
+   private void initAlarmNotificationRadioButton() {
       // Implement alarm/notification radio group behavior
       selectAlarmRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
          @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -235,11 +283,46 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
             selectAlarmRadioButton.setChecked(!isChecked);
          }
       });
+   }
 
-      // Implement color/image radio group behavior
+   /**
+    * Implement color/image radio group behavior. When one of the radio button has clicked, the other
+    * one is unchecked and vice versa.
+    */
+   private void initColorImageRadioButton() {
+
+      // When color radio button is clicked, a dialog to select the color is shown
+      selectColorRow.setOnClickListener(new View.OnClickListener() {
+         @Override public void onClick(View v) {
+            selectColorRadioButton.setChecked(true);
+            showColorPickerDialog();
+         }
+      });
+
+      selectColorRadioButton.setOnClickListener(new View.OnClickListener() {
+         @Override public void onClick(View v) {
+            if (selectColorRadioButton.isChecked()) showColorPickerDialog();
+         }
+      });
+
       selectColorRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
          @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             selectImageRadioButton.setChecked(!isChecked);
+         }
+      });
+
+      // When image radio button is clicked, a dialog to select an image from the gallery or camera is shown
+      selectImageRow.setOnClickListener(new View.OnClickListener() {
+         @Override public void onClick(View v) {
+            selectImageRadioButton.setChecked(true);
+            // TODO 02/06/2017 Show dialog to select an image from the gallery or camera
+         }
+      });
+
+      selectImageRadioButton.setOnClickListener(new View.OnClickListener() {
+         @Override public void onClick(View v) {
+            // TODO 02/06/2017 Show dialog to select an image from the gallery or camera
+            //if (selectImageRadioButton.isChecked())
          }
       });
 
@@ -248,15 +331,12 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
             selectColorRadioButton.setChecked(!isChecked);
          }
       });
-
-      setHasOptionsMenu(true);
-      return rootView;
    }
 
    /**
     * Create a custom {@link AlertDialog} to select a patient and show it.
     */
-   public void showSelectPatientDialog() {
+   private void showSelectPatientDialog() {
 
       LayoutInflater inflater = LayoutInflater.from(AddEditMedicineFragment.this.getContext());
       View contentView = inflater.inflate(R.layout.dialog_add_patient, null);
@@ -284,7 +364,7 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
    /**
     * Create a custom {@link AlertDialog} to add a new patient and show it.
     */
-   public void showAddNewPatientDialog() {
+   private void showAddNewPatientDialog() {
       LayoutInflater inflater = LayoutInflater.from(AddEditMedicineFragment.this.getContext());
       View contentView = inflater.inflate(R.layout.dialog_add_new_patient, null);
       final TextInputEditText patientNameEditText = (TextInputEditText) contentView.findViewById(R.id.new_patient_name_edittext);
@@ -335,7 +415,7 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
    /**
     * Create a custom {@link AlertDialog} to select a medicine doses interval.
     */
-   public void showSelectDosesIntervalDialog() {
+   private void showSelectDosesIntervalDialog() {
 
       LayoutInflater inflater = LayoutInflater.from(AddEditMedicineFragment.this.getContext());
       View contentView = inflater.inflate(R.layout.dialog_select_doses_interval, null);
@@ -347,11 +427,11 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
 
       final Resources res = getResources();
 
-      firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_hours));
-      firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_hours));
+      firstValuePicker.setMinValue(res.getInteger(R.integer.medicine_interval_picker_min_hours));
+      firstValuePicker.setMaxValue(res.getInteger(R.integer.medicine_interval_picker_max_hours));
 
-      secondValuePicker.setMinValue(res.getInteger(R.integer.picker_min_minutes));
-      secondValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_minutes));
+      secondValuePicker.setMinValue(res.getInteger(R.integer.medicine_interval_picker_min_minutes));
+      secondValuePicker.setMaxValue(res.getInteger(R.integer.medicine_interval_picker_max_minutes));
 
       final String[] thirdValuePickerValues = {
          res.getQuantityString(R.plurals.select_doses_interval_hours, 2).toUpperCase(),
@@ -369,36 +449,36 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
             if (thirdValuePickerValues[newVal].equalsIgnoreCase(
                getResources().getQuantityString(R.plurals.select_doses_interval_hours, 2))) {
                // When HOURS option is selected, values go from 0 to 23
-               firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_hours));
-               firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_hours));
+               firstValuePicker.setMinValue(res.getInteger(R.integer.medicine_interval_picker_min_hours));
+               firstValuePicker.setMaxValue(res.getInteger(R.integer.medicine_interval_picker_max_hours));
                hourSeparator.setVisibility(View.VISIBLE);
                secondValuePicker.setVisibility(View.VISIBLE);
             } else if (thirdValuePickerValues[newVal].equalsIgnoreCase(
                getResources().getQuantityString(R.plurals.select_doses_interval_days, 2))) {
                // When DAYS option is selected, values go from 1 to 31
-               firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_days));
-               firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_days));
+               firstValuePicker.setMinValue(res.getInteger(R.integer.medicine_interval_picker_min_days));
+               firstValuePicker.setMaxValue(res.getInteger(R.integer.medicine_interval_picker_max_days));
                hourSeparator.setVisibility(View.GONE);
                secondValuePicker.setVisibility(View.GONE);
             } else if (thirdValuePickerValues[newVal].equalsIgnoreCase(
                getResources().getQuantityString(R.plurals.select_doses_interval_weeks, 2))) {
                // When WEEKS option is selected, values go from 1 to 20
-               firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_weeks));
-               firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_weeks));
+               firstValuePicker.setMinValue(res.getInteger(R.integer.medicine_interval_picker_min_weeks));
+               firstValuePicker.setMaxValue(res.getInteger(R.integer.medicine_interval_picker_max_weeks));
                hourSeparator.setVisibility(View.GONE);
                secondValuePicker.setVisibility(View.GONE);
             } else if (thirdValuePickerValues[newVal].equalsIgnoreCase(
                getResources().getQuantityString(R.plurals.select_doses_interval_months, 2))) {
                // When MONTH option is selected, values go from 1 to 12
-               firstValuePicker.setMinValue(res.getInteger(R.integer.picker_min_months));
-               firstValuePicker.setMaxValue(res.getInteger(R.integer.picker_max_months));
+               firstValuePicker.setMinValue(res.getInteger(R.integer.medicine_interval_picker_min_months));
+               firstValuePicker.setMaxValue(res.getInteger(R.integer.medicine_interval_picker_max_months));
                hourSeparator.setVisibility(View.GONE);
                secondValuePicker.setVisibility(View.GONE);
             }
          }
       });
 
-      final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddEditMedicineFragment.this.getContext());
+      final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
       dialogBuilder.setTitle(getString(R.string.select_doses_interval_title));
       dialogBuilder.setView(contentView);
       dialogBuilder.setPositiveButton(R.string.action_accept, null);
@@ -434,6 +514,63 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
                      textLabel = res.getQuantityString(R.plurals.add_medicine_add_interval_months_text, firstValue, firstValue);
                   }
                   addDosesIntervalTextView.setText(textLabel);
+                  //TODO 24/02/2017 Save the value in the repository
+                  dialog.dismiss();
+               }
+            });
+
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+
+               @Override
+               public void onClick(View view) {
+                  dialog.dismiss();
+               }
+            });
+         }
+      });
+
+      alertDialog.show();
+   }
+
+   /**
+    * Show a picker to select the medicine color
+    */
+   private void showColorPickerDialog() {
+
+      LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+      @SuppressLint("InflateParams")
+      View colorPickerDialogView = layoutInflater.inflate(R.layout.dialog_color_picker, null);
+      final ColorPickerPaletteView colorPickerPalette = (ColorPickerPaletteView)
+         colorPickerDialogView.findViewById(R.id.color_picker_palette);
+
+      final Resources res = getResources();
+
+      int[] colors = res.getIntArray(R.array.medicines_colors);
+      //TODO 02/06/2017 Selected color must be the color saved in the firebase data base
+      //noinspection deprecation
+      int selectedColor = res.getColor(R.color.medicine_red);
+
+      //FIXME 09/04/2017 Change the size depending of the device resolution (tablet or mobile)
+      colorPickerPalette.init(colorPickerPalette.SIZE_SMALL, res.getInteger(R.integer.color_picker_columns));
+      colorPickerPalette.drawPalette(colors, selectedColor);
+
+      AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext())
+         .setTitle(R.string.color_picker_default_title)
+         .setPositiveButton(R.string.action_accept, null)
+         .setNegativeButton(R.string.action_cancel, null)
+         .setView(colorPickerDialogView);
+
+      final AlertDialog alertDialog = dialogBuilder.create();
+      alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+         @Override
+         public void onShow(final DialogInterface dialog) {
+
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+
+               @Override
+               public void onClick(View view) {
+                  int selectedColor = colorPickerPalette.getSelectedColor();
                   //TODO 24/02/2017 Save the value in the repository
                   dialog.dismiss();
                }
