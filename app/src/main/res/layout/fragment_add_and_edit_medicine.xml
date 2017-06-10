@@ -17,11 +17,9 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:animateLayoutChanges="true"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".addeditmedicine.AddEditMedicineFragment"
-    tools:showIn="@layout/activity_add_and_edit_medicine">
+    tools:context=".addeditmedicine.AddEditMedicineFragment">
 
     <!-- Main container -->
     <LinearLayout
@@ -60,10 +58,15 @@
                 android:layout_width="match_parent">
 
                 <TextView
-                    style="@style/AppTheme.Text.AddAndEditMedicine.Text"
+                    style="@style/AppTheme.AddAndEditMedicine.Text"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
                     android:hint="@string/add_medicine_add_patient_hint"
                     android:id="@+id/add_patient_textview"
-                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="@dimen/add_and_edit_medicine_row_height"
                     android:layout_width="match_parent" />
             </RelativeLayout>
 
@@ -94,7 +97,7 @@
                     android:id="@+id/initial_date_icon"
                     android:layout_alignParentStart="true"
                     android:layout_height="@dimen/add_and_edit_medicine_icon_size"
-                    android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin"
+                    android:layout_marginTop="@dimen/add_and_edit_medicine_first_column_vertical_margin"
                     android:layout_width="@dimen/add_and_edit_medicine_icon_size"
                     android:src="@drawable/ic_event_gray_24dp" />
             </RelativeLayout>
@@ -107,32 +110,32 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/AppTheme.Text.AddAndEditMedicine.Text"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/add_and_edit_medicine_row_vertical_margin"
+                    style="@style/AppTheme.AddAndEditMedicine.Text"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:layout_height="@dimen/add_and_edit_medicine_row_height"
                     android:layout_width="match_parent"
                     android:text="@string/add_medicine_initial_date_title" />
 
                 <RelativeLayout
-                    android:gravity="center_vertical"
-                    android:id="@+id/select_initial_date_row"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
+                    style="@style/AppTheme.AddAndEditMedicine.FormRow"
+                    android:id="@+id/select_initial_date_row">
 
                     <TextView
-                        style="@style/AppTheme.Text.AddAndEditMedicine.Text"
+                        style="@style/AppTheme.AddAndEditMedicine.Text"
+                        android:foreground="?attr/selectableItemBackground"
                         android:id="@+id/initial_date_day_textview"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/add_and_edit_medicine_row_height"
                         android:layout_width="wrap_content"
                         android:text="@string/add_medicine_initial_date_title" />
 
                     <TextView
-                        style="@style/AppTheme.Text.AddAndEditMedicine.Text"
-                        android:gravity="end"
+                        style="@style/AppTheme.AddAndEditMedicine.Text"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical|end"
                         android:id="@+id/initial_date_hour_textview"
                         android:layout_alignParentEnd="true"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/add_and_edit_medicine_row_height"
                         android:layout_width="wrap_content"
                         android:textAlignment="gravity" />
 
@@ -178,10 +181,14 @@
                 android:layout_width="match_parent">
 
                 <TextView
-                    style="@style/AppTheme.Text.AddAndEditMedicine.Text"
+                    style="@style/AppTheme.AddAndEditMedicine.Text"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
                     android:hint="@string/add_medicine_add_interval_hint"
                     android:id="@+id/add_doses_interval_textview"
-                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_height="@dimen/add_and_edit_medicine_row_height"
                     android:layout_width="match_parent" />
             </RelativeLayout>
 
@@ -212,7 +219,7 @@
                     android:id="@+id/final_date_icon"
                     android:layout_alignParentStart="true"
                     android:layout_height="@dimen/add_and_edit_medicine_icon_size"
-                    android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin"
+                    android:layout_marginTop="@dimen/add_and_edit_medicine_first_column_vertical_margin"
                     android:layout_width="@dimen/add_and_edit_medicine_icon_size"
                     android:src="@drawable/ic_event_gray_24dp" />
             </RelativeLayout>
@@ -222,24 +229,22 @@
                 android:layout_marginBottom="@dimen/add_and_edit_medicine_row_vertical_margin"
                 android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin"
                 android:layout_width="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical" >
 
                 <TextView
-                    style="@style/AppTheme.Text.AddAndEditMedicine.Text"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/add_and_edit_medicine_row_vertical_margin"
+                    style="@style/AppTheme.AddAndEditMedicine.Text"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:layout_height="@dimen/add_and_edit_medicine_row_height"
                     android:layout_width="match_parent"
                     android:text="@string/add_medicine_final_date_title" />
 
                 <RelativeLayout
-                    android:gravity="center_vertical"
-                    android:id="@+id/chronic_medicine_row"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
+                    style="@style/AppTheme.AddAndEditMedicine.FormRow"
+                    android:id="@+id/chronic_medicine_row">
 
                     <TextView
-                        style="@style/AppTheme.Text.AddAndEditMedicine.Text"
+                        style="@style/AppTheme.AddAndEditMedicine.Text"
                         android:id="@+id/chronic_medicine_title"
                         android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
@@ -249,33 +254,32 @@
                     <Switch
                         android:id="@+id/chronic_medicine_switch"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:gravity="center_vertical"
-                    android:id="@+id/select_final_date_row"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
+                    style="@style/AppTheme.AddAndEditMedicine.FormRow"
+                    android:id="@+id/select_final_date_row">
 
                     <TextView
-                        style="@style/AppTheme.Text.AddAndEditMedicine.Text"
+                        style="@style/AppTheme.AddAndEditMedicine.Text"
+                        android:foreground="?attr/selectableItemBackground"
                         android:id="@+id/final_date_day_textview"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/add_and_edit_medicine_row_height"
                         android:layout_width="wrap_content"
                         android:text="@string/add_medicine_final_date_title"
                         tools:text="dom, 22 enero, 2017" />
 
                     <TextView
-                        style="@style/AppTheme.Text.AddAndEditMedicine.Text"
-                        android:gravity="end"
+                        style="@style/AppTheme.AddAndEditMedicine.Text"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical|end"
                         android:id="@+id/final_date_hour_textview"
                         android:layout_alignParentEnd="true"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/add_and_edit_medicine_row_height"
                         android:layout_width="wrap_content"
                         android:textAlignment="gravity"
                         tools:text="10:00" />
@@ -311,35 +315,32 @@
                     android:id="@+id/alarm_selection_icon"
                     android:layout_alignParentStart="true"
                     android:layout_height="@dimen/add_and_edit_medicine_icon_size"
-                    android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin"
+                    android:layout_marginTop="@dimen/add_and_edit_medicine_first_column_vertical_margin"
                     android:layout_width="@dimen/add_and_edit_medicine_icon_size"
                     android:src="@drawable/ic_notifications_gray_24dp" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/add_and_edit_medicine_row_vertical_margin_small"
-                android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin_small"
+                android:layout_marginBottom="@dimen/add_and_edit_medicine_row_vertical_margin"
+                android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin"
                 android:layout_width="match_parent"
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:gravity="center_vertical"
-                    android:id="@+id/select_alarm_row"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/add_and_edit_medicine_row_vertical_margin_small"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
+                    style="@style/AppTheme.AddAndEditMedicine.FormRow"
+                    android:id="@+id/select_alarm_row">
 
                     <RadioButton
                         android:checked="true"
                         android:id="@+id/select_alarm_radiobutton"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content" />
 
                     <TextView
-                        style="@style/AppTheme.Text.AddAndEditMedicine.Text"
+                        style="@style/AppTheme.AddAndEditMedicine.Text"
                         android:id="@+id/alarm_selection_title"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
@@ -350,21 +351,18 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:gravity="center_vertical"
-                    android:id="@+id/select_notification_row"
-                    android:layout_gravity="center_vertical"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
+                    style="@style/AppTheme.AddAndEditMedicine.FormRow"
+                    android:id="@+id/select_notification_row">
 
                     <RadioButton
                         android:id="@+id/select_notification_radiobutton"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content" />
 
                     <TextView
-                        style="@style/AppTheme.Text.AddAndEditMedicine.Text"
+                        style="@style/AppTheme.AddAndEditMedicine.Text"
                         android:id="@+id/notification_selection_title"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
@@ -403,76 +401,62 @@
                     android:id="@+id/color_selection_icon"
                     android:layout_alignParentStart="true"
                     android:layout_height="@dimen/add_and_edit_medicine_icon_size"
-                    android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin"
+                    android:layout_marginTop="@dimen/add_and_edit_medicine_first_column_vertical_margin"
                     android:layout_width="@dimen/add_and_edit_medicine_icon_size"
                     android:src="@drawable/ic_color_gray_24dp" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/add_and_edit_medicine_row_vertical_margin_small"
-                android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin_small"
+                android:layout_marginBottom="@dimen/add_and_edit_medicine_row_vertical_margin"
+                android:layout_marginTop="@dimen/add_and_edit_medicine_row_vertical_margin"
                 android:layout_width="match_parent"
                 android:orientation="vertical">
 
-                <RadioGroup
-                    android:checkedButton="@+id/select_color_radiogroup"
-                    android:id="@+id/select_color_type_radio_group"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content">
+                <RelativeLayout
+                    style="@style/AppTheme.AddAndEditMedicine.FormRow"
+                    android:id="@+id/select_color_row">
 
-                    <RelativeLayout
-                        android:gravity="center_vertical"
-                        android:id="@+id/select_color_row"
+                    <RadioButton
+                        android:checked="true"
+                        android:id="@+id/select_color_radiobutton"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/add_and_edit_medicine_row_vertical_margin_small"
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal">
+                        android:layout_width="wrap_content" />
 
-                        <RadioButton
-                            android:checked="true"
-                            android:id="@+id/select_color_radiobutton"
-                            android:layout_alignParentEnd="true"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content" />
-
-                        <TextView
-                            style="@style/AppTheme.Text.AddAndEditMedicine.Text"
-                            android:id="@+id/color_selection_title"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_height="wrap_content"
-                            android:layout_width="match_parent"
-                            android:text="@string/add_medicine_color_title" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:gravity="center_vertical"
-                        android:id="@+id/select_image_row"
-                        android:layout_gravity="center_vertical"
+                    <TextView
+                        style="@style/AppTheme.AddAndEditMedicine.Text"
+                        android:id="@+id/color_selection_title"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:orientation="horizontal">
+                        android:text="@string/add_medicine_color_title" />
 
-                        <RadioButton
-                            android:id="@+id/select_image_radiobutton"
-                            android:layout_alignParentEnd="true"
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content" />
+                </RelativeLayout>
 
-                        <TextView
-                            style="@style/AppTheme.Text.AddAndEditMedicine.Text"
-                            android:id="@+id/image_selection_title"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_height="wrap_content"
-                            android:layout_width="match_parent"
-                            android:text="@string/add_medicine_image_title" />
+                <RelativeLayout
+                    style="@style/AppTheme.AddAndEditMedicine.FormRow"
+                    android:id="@+id/select_image_row">
 
-                    </RelativeLayout>
+                    <RadioButton
+                        android:id="@+id/select_image_radiobutton"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
 
-                </RadioGroup>
+                    <TextView
+                        style="@style/AppTheme.AddAndEditMedicine.Text"
+                        android:id="@+id/image_selection_title"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="@string/add_medicine_image_title" />
+
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

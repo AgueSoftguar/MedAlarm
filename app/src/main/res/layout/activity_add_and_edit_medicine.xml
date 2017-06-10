@@ -50,7 +50,7 @@
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:textSize="16sp"
-            android:theme="@style/AppTheme.Text.ToolBar.EditText" />
+            android:theme="@style/AppTheme.ToolBar.EditText" />
 
     </android.support.design.widget.AppBarLayout>
 

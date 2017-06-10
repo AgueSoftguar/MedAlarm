@@ -13,8 +13,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- General actions -->
     <string name="action_about">Acerca de</string>
@@ -80,5 +79,10 @@
         <item quantity="one">Mes</item>
         <item quantity="other">Meses</item>
     </plurals>
+
+    <!-- Color picker dialog -->
+    <string name="color_picker_default_title">Selecciona un color</string>
+    <string name="color_item_description">Color <xliff:g id="color_index">%1$d</xliff:g></string>
+    <string name="color_item_description_selected">Color <xliff:g id="color_index">%1$d</xliff:g> seleccionado</string>
 
 </resources>
