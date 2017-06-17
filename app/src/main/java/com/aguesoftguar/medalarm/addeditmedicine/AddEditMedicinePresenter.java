@@ -88,7 +88,7 @@ public class AddEditMedicinePresenter implements AddEditMedicineContract.Present
          new PatientsDataSource.CreateMedicineCallback() {
          @Override
          public void onMedicineSaved(Medicine medicine) {
-            Log.d(TAG, "onMedicineSaved");
+            addMedicineView.addMedicine();
          }
 
          @Override

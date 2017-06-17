@@ -45,6 +45,7 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.aguesoftguar.medalarm.R;
 import com.aguesoftguar.medalarm.data.Medicine;
@@ -659,6 +660,12 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
    public void addPatient(String key, Patient patient) {
       patientsAdapter.addItem(key, patient);
       positionPatientSelected = patientsAdapter.getCount() - 1;
+   }
+
+   @Override public void addMedicine() {
+      Toast.makeText(getActivity().getApplicationContext(),
+         getString(R.string.creating_medicine), Toast.LENGTH_SHORT).show();
+      getActivity().finish();
    }
 
 }

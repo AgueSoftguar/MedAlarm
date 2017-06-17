@@ -36,6 +36,9 @@ public interface AddEditMedicineContract {
       void loadPatients(List<String> keys, List<Patient> patients);
 
       void addPatient(String key, Patient patient);
+
+      void addMedicine();
+
    }
 
    interface Presenter extends BasePresenter {

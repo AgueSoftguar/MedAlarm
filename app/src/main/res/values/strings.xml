@@ -57,6 +57,9 @@
     <string name="add_medicine_color_title">Color</string>
     <string name="add_medicine_image_title">Image</string>
 
+    <!-- Create medicine -->
+    <string name="creating_medicine">Medicine created.</string>
+
     <!-- Add patient dialog -->
     <string name="add_patient_title">Add patient</string>
     <string name="add_patient_new_title">Add new patient</string>
