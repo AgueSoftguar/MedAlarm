@@ -95,9 +95,6 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
    private int positionPatientSelected = -1;
    private int colorMedicineSelected = -1;
 
-   /**
-    *
-    */
    public AddEditMedicineFragment() {
       // Required empty public constructor
    }
@@ -609,10 +606,9 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
          case R.id.save_medicine:
             LayoutInflater inflater =
                LayoutInflater.from(AddEditMedicineFragment.this.getContext());
-            View contentView = inflater.inflate(R.layout.activity_add_and_edit_medicine, null);
 
-            EditText medicineNameEditText =
-                    (EditText) contentView.findViewById(R.id.medicine_name_edittext);
+            EditText medicineNameEditText = (EditText)
+               getActivity().findViewById(R.id.medicine_name_edittext);
 
             String medicineName = medicineNameEditText.getText().toString();
             String patientId = patientsAdapter.getKey(positionPatientSelected);
@@ -629,8 +625,12 @@ public class AddEditMedicineFragment extends Fragment implements AddEditMedicine
             int color = selectColorRadioButton.isChecked() ? colorMedicineSelected : -1;
             boolean photo = selectImageRadioButton.isChecked();
 
-            Medicine medicine = new Medicine.MedicineBuilder(medicineName, patientId, initialDateDay,
-               initialDateHour, addDosesInterval).
+            Medicine medicine = new Medicine.MedicineBuilder().
+               name(medicineName).
+               patientUuid(patientId).
+               initialDateDay(initialDateDay).
+               initialDateHour(initialDateHour).
+               dosesInterval(addDosesInterval).
                finalDateDay(finalDateDay).
                finalDateHour(finalDateHour).
                reminder(reminder).

@@ -70,9 +70,10 @@ public interface PatientsDataSource {
    /**
     * Save a patient into
     * {@link  <a href="https://firebase.google.com/docs/database/?hl=es">the realtime database</a>}.
+    *
     * @param patient {@link Patient} to save.
-    * <p>
-    * Note: {@link CreatePatientCallback#onSaveFailed(String errorDescription)}
+    *                <p>
+    *                Note: {@link CreatePatientCallback#onSaveFailed(String errorDescription)}
     *                is fired if fail to save the patient.
     */
    void savePatient(@NonNull Patient patient, @NonNull CreatePatientCallback callback);
@@ -80,10 +81,11 @@ public interface PatientsDataSource {
    /**
     * Save a medicine into
     * {@link  <a href="https://firebase.google.com/docs/database/?hl=es">the realtime database</a>}.
+    *
     * @param medicine {@link Medicine} to save.
-    * <p>
-    * Note: {@link CreateMedicineCallback#onSaveFailed(String errorDescription)}
-    *                is fired if fail to save the medicine.
+    *                 <p>
+    *                 Note: {@link CreateMedicineCallback#onSaveFailed(String errorDescription)}
+    *                 is fired if fail to save the medicine.
     */
    void saveMedicine(@NonNull String patientId, @NonNull Medicine medicine,
                      @NonNull CreateMedicineCallback callback);

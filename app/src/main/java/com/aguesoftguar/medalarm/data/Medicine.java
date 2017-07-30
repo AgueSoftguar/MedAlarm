@@ -75,10 +75,10 @@ public class Medicine {
 
       // Optional parameters - initialized to default values
       @Nullable
-      private String finalDateDay = "";
+      private String finalDateDay;
 
       @Nullable
-      private String finalDateHour = "";
+      private String finalDateHour;
 
       private int reminder = -1;
 
@@ -86,18 +86,62 @@ public class Medicine {
 
       private boolean photo = false;
 
-      public MedicineBuilder(String name, String patientUuid, String initialDateDay,
-                     String initialDateHour, String dosesInterval) {
+      /**
+       * Set the field name.
+       *
+       * @param name name of the medication
+       * @return {@link MedicineBuilder}
+       */
+      public MedicineBuilder name(String name) {
          this.name = name;
+         return this;
+      }
+
+      /**
+       * Set the field patientUuid.
+       *
+       * @param patientUuid
+       * @return {@link MedicineBuilder}
+       */
+      public MedicineBuilder patientUuid(String patientUuid) {
          this.patientUuid = patientUuid;
+         return this;
+      }
+      /**
+       * Set the field initialDateDay.
+       *
+       * @param initialDateDay Initial Date of the medication
+       * @return {@link MedicineBuilder}
+       */
+      public MedicineBuilder initialDateDay(String initialDateDay) {
          this.initialDateDay = initialDateDay;
+         return this;
+      }
+      /**
+       * Set the field initialDateHour.
+       *
+       * @param initialDateHour Initial hour of the first medication
+       * @return {@link MedicineBuilder}
+       */
+      public MedicineBuilder initialDateHour(String initialDateHour) {
          this.initialDateHour = initialDateHour;
+         return this;
+      }
+      /**
+       * Set the field dosesInterval.
+       *
+       * @param dosesInterval Final Date of the medication
+       * @return {@link MedicineBuilder}
+       */
+      public MedicineBuilder dosesInterval(String dosesInterval) {
          this.dosesInterval = dosesInterval;
+         return this;
       }
 
       /**
        * Set the field finalDateDay.
        * If it's empty, medication is chronic.
+       *
        * @param finalDateDay Final Date of the medication
        * @return {@link MedicineBuilder}
        */
@@ -109,6 +153,7 @@ public class Medicine {
       /**
        * Set the field finalDateHour.
        * If it's empty, medication is chronic.
+       *
        * @param finalDateHour Final Hour of the last medication
        * @return {@link MedicineBuilder}
        */
@@ -121,6 +166,7 @@ public class Medicine {
        * Set the field reminder.
        * If it's 0, notification.
        * if it's 1, alarm.
+       *
        * @param reminder Type of reminder(alarm or notification)
        * @return {@link MedicineBuilder}
        */
@@ -131,6 +177,7 @@ public class Medicine {
 
       /**
        * Set the field color.
+       *
        * @param color of the medicine
        * @return {@link MedicineBuilder}
        */
@@ -141,6 +188,7 @@ public class Medicine {
 
       /**
        * Set the field photo.
+       *
        * @param photo of the medicine
        * @return {@link MedicineBuilder}
        */
@@ -151,6 +199,7 @@ public class Medicine {
 
       /**
        * Generate the object Medicine.
+       *
        * @return {@link Medicine}
        */
       public Medicine build() {
