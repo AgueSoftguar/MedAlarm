@@ -16,6 +16,8 @@
 
 package com.aguesoftguar.medalarm.data.source;
 
+import com.aguesoftguar.medalarm.data.Medicine;
+import com.aguesoftguar.medalarm.util.Log;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +47,9 @@ public class PatientsRepository implements PatientsDataSource {
 
    private DatabaseReference database;
 
-   private final String patientsNode = "Patients";
+   private final String patientsNode = "patients";
+   private final String medicinesNode = "medicines";
+   private final String patientMedicinesNode = "patient-medicines";
 
    // Prevent direct instantiation.
    private PatientsRepository() {
@@ -72,10 +76,13 @@ public class PatientsRepository implements PatientsDataSource {
          @Override
          public void onDataChange(DataSnapshot dataSnapshot) {
             List<Patient> patients = new ArrayList<>();
+            List<String> keys = new ArrayList<>();
+
             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                patients.add(postSnapshot.getValue(Patient.class));
+               keys.add(postSnapshot.getKey().toString());
             }
-            callback.onPatientsLoaded(patients);
+            callback.onPatientsLoaded(keys, patients);
          }
 
          @Override
@@ -92,20 +99,44 @@ public class PatientsRepository implements PatientsDataSource {
       checkNotNull(patient);
       checkNotNull(callback);
 
-      String key = database.child(patientsNode).push().getKey();
+      final String key = database.child(patientsNode).push().getKey();
       Map<String, Object> childUpdates = new HashMap<>();
       childUpdates.put("/" + patientsNode + "/" + key, patient.toMap());
       database.updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
          @Override
          public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
             if (databaseError == null) {
-               callback.onPatientSaved(patient);
+               callback.onPatientSaved(key, patient);
             } else {
                callback.onSaveFailed(databaseError.getMessage());
             }
          }
       });
+   }
 
+      @Override
+      public void saveMedicine(@NonNull String patientId, @NonNull final Medicine medicine,
+      @NonNull final CreateMedicineCallback callback) {
+
+         checkNotNull(medicine);
+         checkNotNull(callback);
+
+         String key = database.child(medicinesNode).push().getKey();
+         Map<String, Object> childUpdates = new HashMap<>();
+         childUpdates.put("/" + patientMedicinesNode + "/" + patientId + "/" + key, medicine.toMap());
+         database.updateChildren(childUpdates);
+         childUpdates.clear();
+         childUpdates.put("/" + medicinesNode + "/" + key, medicine.toMap());
+         database.updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+               if (databaseError == null) {
+                  callback.onMedicineSaved(medicine);
+               } else {
+                  callback.onSaveFailed(databaseError.getMessage());
+               }
+            }
+         });
    }
 
 }
